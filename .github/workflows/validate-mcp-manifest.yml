@@ -1,0 +1,33 @@
+name: Validate MCP Manifests
+
+on:
+  push:
+    paths:
+      - 'mcp/**'
+      - '.mcp/**'
+  pull_request:
+    paths:
+      - 'mcp/**'
+      - '.mcp/**'
+
+jobs:
+  validate-manifest:
+    name: Validate MCP manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies (button mcp)
+        run: |
+          cd mcp/button-atom-mcp
+          npm ci
+
+      - name: Run manifest validator
+        run: |
+          cd mcp/button-atom-mcp
+          npm run validate-manifest
