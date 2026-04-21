@@ -1,32 +1,33 @@
 import React from "react";
 
-interface buttonProps {
-    label: string;
-    variant: string;
-    onClick?: () => void;
+interface ButtonProps {
+  label: string;
+  variant?: 'primary' | 'secondary';
+  onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
 }
 
-const Button = ({label, variant, onClick}: buttonProps) => {
-
-    const getStyles = (): React.CSSProperties => {
+const Button = ({ label, variant = 'primary', onClick, type = 'button', disabled = false }: ButtonProps) => {
+  const getStyles = (): React.CSSProperties => {
     return {
-      padding: "10px 20px",
-      borderRadius: "5px",
-      cursor: "pointer",
-      border: "none",
-      fontWeight: "bold",
-      margin: "5px",
-      // Conditional styling logic
-      backgroundColor: variant === "primary" ? "#007bff" : "#6c757d",
-      color: "white",
+      padding: '10px 20px',
+      borderRadius: '5px',
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      border: 'none',
+      fontWeight: 'bold',
+      margin: '5px',
+      backgroundColor: variant === 'primary' ? '#007bff' : '#6c757d',
+      color: 'white',
+      opacity: disabled ? 0.6 : 1,
     };
   };
 
-    return (
-        <button style={getStyles()} onClick={onClick}>
-            {label}
-        </button>
-    )
+  return (
+    <button style={getStyles()} onClick={onClick} type={type} disabled={disabled}>
+      {label}
+    </button>
+  );
 }
 
 export default Button;

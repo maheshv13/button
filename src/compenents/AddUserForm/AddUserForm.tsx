@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import type { UserProps } from "../../types/UserType/UserType";
+import Button from "../Button";
 
 interface AddUserProps {
   onAdd: (newUser: UserProps) => void;
@@ -10,7 +11,7 @@ const AddUserForm = ({onAdd, disabled}: AddUserProps) => {
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
 
-  const handleSubmit = (e: React.SubmitEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if(!name || !lastname) return;
 
@@ -33,24 +34,25 @@ const AddUserForm = ({onAdd, disabled}: AddUserProps) => {
       action="">
 
       <input
-        disabled={disabled} // Disable inputs and button if 'disabled' is true
-        id={name} 
-        placeholder="First Name" 
-        value={name} 
-        onChange={(e) => setName(e.target.value)} 
+        disabled={disabled}
+        id="firstName"
+        placeholder="First Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
       <input
-        disabled={disabled} // Disable inputs and button if 'disabled' is true
-        id={name} 
-        placeholder="Last Name" 
-        value={lastname} 
-        onChange={(e) => setLastname(e.target.value)} 
+        disabled={disabled}
+        id="lastName"
+        placeholder="Last Name"
+        value={lastname}
+        onChange={(e) => setLastname(e.target.value)}
       />
-      <button
-        disabled={disabled} // Disable inputs and button if 'disabled' is true
-        className="text-white bg-purple-950 p-2 rounded-lg transition-colors text-sm font-medium" 
-        type="submit">
-        Add User</button>
+      <Button
+        label="Add User"
+        variant="primary"
+        type="submit"
+        disabled={!!disabled || !name || !lastname}
+      />
       
     </form>
   )

@@ -10,6 +10,7 @@ import { supabase } from "../../lib/supabase";
 import DeleteModal from "../../compenents/Modals/DeleteModal";
 import { useAuth } from "../../compenents/GlobalContext/AuthContext";
 import { Link } from "react-router-dom";
+import Button from "../../compenents/Button";
 import toast from 'react-hot-toast';
 
 const UserPage = () => {
@@ -145,15 +146,10 @@ const UserPage = () => {
 
   return (
     <div className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen">
-     
+        
       <div className="max-w-xl mx-auto">
       {user && (
-        <button 
-          onClick={signOut}
-          className="text-sm text-slate-500 hover:text-red-500"
-        >
-          Logout
-        </button>
+        <Button label="Logout" variant="secondary" onClick={signOut} />
       )}
 
        {/* <ThemeToggle/> Add the button here! */}
@@ -176,12 +172,11 @@ const UserPage = () => {
         <span className="text-4xl text-gray-300">🔍</span>
         <p className={listStyles.emptyText}>No matches found for "{searchTerm}"</p>
         <p className={listStyles.emptySubtext}>Try checking your spelling or using a different name.</p>
-        <button 
-          onClick={() => setSearchTerm("")} 
-          className={listStyles.clearBtn}
-        >
-          Clear Search
-        </button>
+        <Button
+          label="Clear Search"
+          variant="secondary"
+          onClick={() => setSearchTerm("")}
+        />
       </div>
       ) : (
         <div>
